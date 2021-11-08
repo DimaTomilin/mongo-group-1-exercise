@@ -1,4 +1,5 @@
 const express = require('express');
+const morgan = require('morgan');
 const app = express();
 
 let phonebook = [
@@ -23,7 +24,13 @@ let phonebook = [
     number: '39-23-6423122',
   },
 ];
+morgan.token('body', function (req, res) {
+  return JSON.stringify(req.body);
+});
 
+app.use(
+  morgan(' :method :url :status :res[content-length] - :response-time ms :body')
+);
 app.use(express.json());
 
 app.get('/', (request, response) => {
@@ -76,8 +83,14 @@ app.post('/api/persons', (request, response) => {
     return response.status(403).json({ error: 'name must be unique' });
   }
 
-  phonebook = phonebook.concat(body);
-  response.json(body);
+  const newPerson = {
+    id: Math.floor(Math.random() * 1000),
+    name: body.name,
+    number: body.number,
+  };
+
+  phonebook = phonebook.concat(newPerson);
+  response.json(newPerson);
 });
 
 const PORT = 3001;
