@@ -24,6 +24,8 @@ let phonebook = [
   },
 ];
 
+app.use(express.json());
+
 app.get('/', (request, response) => {
   response.send('<h1>Hello World!</h1>');
 });
@@ -61,6 +63,21 @@ app.delete('/api/persons/:id', (request, response) => {
 
   response.status(204).end();
 });
+
+app.post('/api/persons', (request, response) => {
+  const body = request.body;
+  body.id = Math.floor(Math.random() * 1000);
+
+  if (!body.name || !body.number) {
+    return response.status(400).json({
+      error: 'content missing',
+    });
+  } else if (phonebook.find((person) => person.name === body.name)) {
+    return response.status(403).json({ error: 'name must be unique' });
+  }
+
+  phonebook = phonebook.concat(body);
+  response.json(body);
 });
 
 const PORT = 3001;
