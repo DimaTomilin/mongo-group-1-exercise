@@ -33,10 +33,28 @@ app.get('/api/persons', (request, response) => {
 });
 
 app.get('/info', (request, response) => {
-  console.log(request);
-  console.log(phonebook.length);
   const date = Date();
-  response.json(date);
+  response.send(`
+  <html>
+    <body>
+            <p>Phonebooke has info for ${phonebook.length} people.<p>
+            <p>${date}</p>
+    </body>
+  </html>
+  `);
+});
+
+app.get('/api/persons/:id', (request, response) => {
+  const id = Number(request.params.id);
+  const person = phonebook.find((person) => person.id === id);
+
+  if (person) {
+    response.json(person);
+  } else {
+    response.status(404).end();
+  }
+});
+
 });
 
 const PORT = 3001;
