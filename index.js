@@ -1,6 +1,7 @@
 const express = require('express');
 const morgan = require('morgan');
 const app = express();
+var cors = require('cors');
 
 let phonebook = [
   {
@@ -24,8 +25,16 @@ let phonebook = [
     number: '39-23-6423122',
   },
 ];
+
+app.use(cors());
 morgan.token('body', function (req, res) {
   return JSON.stringify(req.body);
+});
+
+app.use('/', express.static('./frontend')); // serve main path as static dir
+app.get('/', function (req, res) {
+  // serve main path as static file
+  res.sendFile('./frontend/index.html');
 });
 
 app.use(
@@ -41,6 +50,19 @@ app.get('/api/persons', (request, response) => {
   response.json(phonebook);
 });
 
+app.get('/api/person', (request, response) => {
+  const name = request.query.name.toLocaleLowerCase();
+  const person = phonebook.find(
+    (person) => person.name.toLocaleLowerCase() === name
+  );
+
+  if (person) {
+    response.json(person);
+  } else {
+    response.status(404).end();
+  }
+});
+
 app.get('/info', (request, response) => {
   const date = Date();
   response.send(`
@@ -53,7 +75,7 @@ app.get('/info', (request, response) => {
   `);
 });
 
-app.get('/api/persons/:id', (request, response) => {
+app.get('/api/person/:id', (request, response) => {
   const id = Number(request.params.id);
   const person = phonebook.find((person) => person.id === id);
 
@@ -64,14 +86,14 @@ app.get('/api/persons/:id', (request, response) => {
   }
 });
 
-app.delete('/api/persons/:id', (request, response) => {
+app.delete('/api/person/:id', (request, response) => {
   const id = Number(request.params.id);
   phonebook = phonebook.filter((person) => person.id !== id);
 
   response.status(204).end();
 });
 
-app.post('/api/persons', (request, response) => {
+app.post('/api/person', (request, response) => {
   const body = request.body;
   body.id = Math.floor(Math.random() * 1000);
 
