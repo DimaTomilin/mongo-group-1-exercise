@@ -6,7 +6,7 @@ const {
   createPerson,
   getPersonByName,
   deletePerson,
-} = require('../controllers/person');
+} = require('../controller/person');
 
 router.get('/persons', getAllPeople);
 router.post('/person', createPerson);
