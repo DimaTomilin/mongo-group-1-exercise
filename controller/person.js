@@ -25,11 +25,11 @@ exports.getPersonByName = async (req, res) => {
   const name = req.query.name;
   try {
     const person = await Person.find({ name: name });
-    if (!person) {
+    if (!person[0]) {
       res.status(404).send('Person not found');
       return;
     }
-    res.send(person);
+    res.send(person[0]);
   } catch (error) {
     res.send(error);
     return;
