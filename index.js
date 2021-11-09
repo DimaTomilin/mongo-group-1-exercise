@@ -1,4 +1,5 @@
 const express = require('express');
+const path = require('path');
 const morgan = require('morgan');
 const app = express();
 var cors = require('cors');
@@ -31,10 +32,10 @@ morgan.token('body', function (req, res) {
   return JSON.stringify(req.body);
 });
 
-app.use('/', express.static('./frontend')); // serve main path as static dir
+app.use('/', express.static(path.resolve('./frontend'))); // serve main path as static dir
 app.get('/', function (req, res) {
   // serve main path as static file
-  res.sendFile('./frontend/index.html');
+  res.sendFile(path.resolve('./frontend/index.html'));
 });
 
 app.use(
