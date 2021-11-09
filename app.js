@@ -6,6 +6,8 @@ const path = require('path');
 const morgan = require('morgan');
 const mongoose = require('mongoose');
 const cors = require('cors');
+const dotenv = require('dotenv');
+dotenv.config();
 
 const apiRouter = require('./routers/apiRouter');
 
@@ -46,6 +48,7 @@ app.get('/info', (request, response) => {
 });
 
 const port = process.env.PORT || 3001;
+
 app.listen(port, () => {
   console.log(`Server running on port ${port}`);
 });
