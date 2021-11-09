@@ -9,7 +9,7 @@ async function searchPerson() {
       response = await axios.get(
         `https://vast-tor-68806.herokuapp.com/api/person?name=${name}`
       );
-
+      console.log(response);
       createPersonElement(response.data);
     }
     if (name === '') {
