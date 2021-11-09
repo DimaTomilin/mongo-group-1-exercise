@@ -7,13 +7,15 @@ async function searchPerson() {
     let response;
     if (name) {
       response = await axios.get(
-        `http://localhost:3001/api/person?name=${name}`
+        `https://vast-tor-68806.herokuapp.com/api/person?name=${name}`
       );
 
       createPersonElement(response.data);
     }
     if (name === '') {
-      response = await axios.get(`http://localhost:3001/api/persons`);
+      response = await axios.get(
+        `https://vast-tor-68806.herokuapp.com/api/persons`
+      );
 
       createPersonList(response.data);
     }
