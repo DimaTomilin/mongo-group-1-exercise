@@ -42,7 +42,7 @@ function numberValidator(number) {
 function checkInputs() {
   const name = document.getElementById('add-name').value;
   const number = document.getElementById('add-number').value;
-  if (!numberValidator(number)) {
+  if (!numberValidator(number) || !number) {
     showingAlert(500, 'Invalid number. Please use correct number.');
     return false;
   }
@@ -94,12 +94,13 @@ async function addPerson() {
 }
 
 async function deletePerson(e) {
-  const name = e.target.parentElement.firstChild.firstChild.innerHTML.slice(6);
-  console.log(name);
+  const removingElement = e.target.parentElement;
+  const name = removingElement.firstChild.firstChild.innerHTML.slice(6);
+  document.getElementById('list-of-person').removeChild(removingElement);
   const response = await axios.delete(
     `https://vast-tor-68806.herokuapp.com/api/person?name=${name}`
   );
-  console.log(response);
+  showingAlert(response.status, 'Person deleted.');
 }
 
 function createPersonElement(person) {
@@ -149,7 +150,7 @@ Error Handler
 function showingAlert(status, message) {
   const object = document.getElementById('alert');
   object.classList.remove(object.classList.item(1));
-  if (status === 200) {
+  if (status < 300) {
     object.classList.add('success');
     object.querySelector(
       'div'
