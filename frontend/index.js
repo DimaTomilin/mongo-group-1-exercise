@@ -84,22 +84,19 @@ async function addOrUpdate() {
   if (!checkInputs()) {
     return false;
   }
+  document.getElementById('add-name').value = '';
+  document.getElementById('add-number').value = '';
   const response = await axios.get(
     `https://vast-tor-68806.herokuapp.com/api/person/check?name=${name}`
   );
-  console.log(response);
-  // let result;
-  // document.getElementById('add-name').value = '';
-  //   document.getElementById('add-number').value = '';
-  // if (response.status === 200) {
-  //   result = await addPerson(name, number);
-  //   showingAlert(result.status, 'Person added to phonebook.');
-  // } else if (response.status === 201 {
-  //   result = await updatePerson(name, number);
-  //   showingAlert(result.status, 'Person`s number updated');
-  // } else {
-  //   showingAlert(response.status, response.statusText);
-  // }
+  let result;
+  if (response.data) {
+    result = await updatePerson(name, number);
+    showingAlert(result.status, 'Person`s number updated');
+  } else {
+    result = await addPerson(name, number);
+    showingAlert(result.status, 'Person added to phonebook.');
+  }
 }
 
 async function addPerson(name, number) {
@@ -107,7 +104,6 @@ async function addPerson(name, number) {
     `https://vast-tor-68806.herokuapp.com/api/person`,
     { name, number }
   );
-  console.log(response);
   return response;
 }
 
@@ -116,7 +112,6 @@ async function updatePerson(name, number) {
     `https://vast-tor-68806.herokuapp.com/api/person`,
     { name, number }
   );
-  console.log(response);
   return response;
 }
 

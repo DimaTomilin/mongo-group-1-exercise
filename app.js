@@ -9,6 +9,7 @@ const cors = require('cors');
 const dotenv = require('dotenv');
 dotenv.config();
 
+const Person = require('../models/person');
 const apiRouter = require('./routers/apiRouter');
 
 app.use(cors());
@@ -37,14 +38,8 @@ app.use('/api', apiRouter);
 
 app.get('/info', (request, response) => {
   const date = Date();
-  response.send(`
-  <html>
-    <body>
-            <p>Phonebooke has info for ${phonebook.length} people.<p>
-            <p>${date}</p>
-    </body>
-  </html>
-  `);
+  const personList = await Person.find({});
+  response.send({ date: date, numberOfPeople: personList.length });
 });
 
 const port = process.env.PORT || 3001;
