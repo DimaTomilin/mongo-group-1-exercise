@@ -63,9 +63,9 @@ exports.checkPerson = async (req, res) => {
   try {
     Person.exists({ name: name }, function (err, doc) {
       if (err) {
-        res.send(false);
+        res.send(false).end();
       } else {
-        res.send(true);
+        res.send(true).end();
       }
     });
   } catch (error) {
