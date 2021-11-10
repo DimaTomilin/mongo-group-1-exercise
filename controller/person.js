@@ -46,3 +46,30 @@ exports.deletePerson = async (req, res) => {
     return;
   }
 };
+
+exports.updatePerson = async (req, res) => {
+  const { name, number } = req.body;
+  try {
+    const person = await Person.findOneAndUpdate({ name }, { number });
+    res.status(200).send(person);
+  } catch (error) {
+    res.send(error);
+    return;
+  }
+};
+
+exports.checkPerson = async (req, res) => {
+  const name = req.query.name;
+  try {
+    Person.exists({ name: name }, function (err, doc) {
+      if (err) {
+        res.send(false);
+      } else {
+        res.send(true);
+      }
+    });
+  } catch (error) {
+    res.send(error);
+    return;
+  }
+};

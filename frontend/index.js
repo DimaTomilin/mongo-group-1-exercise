@@ -76,21 +76,48 @@ async function searchPerson() {
   }
 }
 
-document.getElementById('add').addEventListener('click', addPerson);
+document.getElementById('add').addEventListener('click', addOrUpdate);
 
-async function addPerson() {
+async function addOrUpdate() {
   const name = document.getElementById('add-name').value;
   const number = document.getElementById('add-number').value;
   if (!checkInputs()) {
     return false;
   }
+  const response = await axios.get(
+    `https://vast-tor-68806.herokuapp.com/api/person/check?name=${name}`
+  );
+  console.log(response);
+  // let result;
+  // document.getElementById('add-name').value = '';
+  //   document.getElementById('add-number').value = '';
+  // if (response.status === 200) {
+  //   result = await addPerson(name, number);
+  //   showingAlert(result.status, 'Person added to phonebook.');
+  // } else if (response.status === 201 {
+  //   result = await updatePerson(name, number);
+  //   showingAlert(result.status, 'Person`s number updated');
+  // } else {
+  //   showingAlert(response.status, response.statusText);
+  // }
+}
+
+async function addPerson(name, number) {
   const response = await axios.post(
     `https://vast-tor-68806.herokuapp.com/api/person`,
     { name, number }
   );
-  document.getElementById('add-name').value = '';
-  document.getElementById('add-number').value = '';
-  showingAlert(response.status, 'Person added to phonebook.');
+  console.log(response);
+  return response;
+}
+
+async function updatePerson(name, number) {
+  const response = await axios.put(
+    `https://vast-tor-68806.herokuapp.com/api/person`,
+    { name, number }
+  );
+  console.log(response);
+  return response;
 }
 
 async function deletePerson(e) {
