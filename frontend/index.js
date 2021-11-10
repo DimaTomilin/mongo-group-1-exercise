@@ -88,7 +88,9 @@ async function addPerson() {
     `https://vast-tor-68806.herokuapp.com/api/person`,
     { name, number }
   );
-  console.log(response);
+  document.getElementById('add-name').value = '';
+  document.getElementById('add-number').value = '';
+  showingAlert(response.status, 'Person added to phonebook.');
 }
 
 async function deletePerson(e) {
@@ -121,20 +123,18 @@ function createPersonElement(person) {
     [personInformation, buttonELement],
     ['person']
   );
-
-  // const buttonELement = document.createElement('div');
-  // buttonELement.classList.add('deletebtn');
-  // buttonELement.innerHTML = '&times';
-  // buttonELement.addEventListener('click', deletePerson);
-  // const personElement = document.createElement('div');
-  // personElement.classList.add('person');
-  // personElement.append(personInformation, buttonELement);
   document.getElementById('list-of-person').append(personElement);
 }
 
 function createPersonList(personList) {
-  for (const person of personList) {
-    createPersonElement(person);
+  let endLoop;
+  if (personList.length < 10) {
+    endLoop = personList.length;
+  } else {
+    endLoop = 10;
+  }
+  for (let i = 0; i < endLoop; i++) {
+    createPersonElement(personList[i]);
   }
 }
 

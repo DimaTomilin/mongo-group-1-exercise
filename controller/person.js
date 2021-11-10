@@ -3,7 +3,7 @@ const Person = require('../models/person');
 exports.getAllPeople = async (req, res) => {
   try {
     const personList = await Person.find({});
-    res.send(personList);
+    res.send(personList.reverse());
   } catch (error) {
     res.send(error);
   }
@@ -29,7 +29,7 @@ exports.getPersonByName = async (req, res) => {
       res.status(404).send('Person not found');
       return;
     }
-    res.send(person);
+    res.send(person.reverse());
   } catch (error) {
     res.send(error);
     return;
