@@ -29,7 +29,7 @@ exports.getPersonByName = async (req, res) => {
       res.status(404).send('Person not found');
       return;
     }
-    res.send(person[0]);
+    res.send(person);
   } catch (error) {
     res.send(error);
     return;
