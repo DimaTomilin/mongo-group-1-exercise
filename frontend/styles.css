@@ -1,0 +1,142 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  background: url('./background.jpg') no-repeat right fixed;
+  background-size: 45% 100%;
+  background-color: rgb(253, 222, 44);
+}
+
+#header {
+  text-align: left;
+  font-size: 4rem;
+  margin: 30px 20%;
+}
+
+#list-of-person {
+  width: 400px;
+  margin-bottom: 20px;
+  margin-left: 16%;
+}
+
+#search-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 400px;
+  margin-left: 16%;
+}
+
+#search-form label {
+  font-size: 28px;
+  margin: 10px;
+}
+
+#add-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border: black 1px solid;
+  border-radius: 5px;
+  background-color: rgb(255, 147, 0);
+  width: 400px;
+  margin-left: 16%;
+  margin-bottom: 100px;
+  padding: 10px;
+}
+
+#inputs {
+  display: flex;
+  justify-content: center;
+}
+
+#inputs input {
+  width: 45%;
+  margin: 10px;
+  border-radius: 3px;
+  padding: 3px;
+}
+
+#name-area {
+  border-radius: 3px;
+  width: 250px;
+  margin-bottom: 10px;
+}
+
+#search,
+#add,
+#info {
+  background-color: rgb(166, 129, 0);
+  border: 1px solid black;
+  border-radius: 5px;
+  font-size: 18px;
+  font-weight: 600;
+  padding: 5px;
+}
+
+.person {
+  background-color: rgb(255, 147, 0);
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  font-size: 18px;
+  font-weight: 600;
+  border: black 3px solid;
+  border-radius: 15px;
+  padding: 5px;
+  margin: 10px;
+}
+
+.information {
+  width: 50%;
+}
+
+/*
+*
+Errors
+*
+*/
+.alert {
+  width: 400px;
+  padding: 20px;
+  background-color: brown;
+  color: white;
+  opacity: 1;
+  transition: opacity 0.6s;
+  margin: 25px 16% 25px;
+}
+
+.alert.success {
+  background-color: #04aa6d;
+}
+.alert.info {
+  background-color: #2196f3;
+}
+.alert.warning {
+  background-color: #ff9800;
+}
+
+.closebtn,
+.deletebtn {
+  margin-left: 15px;
+  color: white;
+  font-weight: 600;
+  float: right;
+  font-size: 30px;
+  line-height: 20px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.deletebtn {
+  color: black;
+}
+
+.closebtn:hover {
+  color: black;
+}
+
+.deletebtn:hover {
+  color: grey;
+}
