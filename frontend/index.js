@@ -26,6 +26,7 @@ function createElement(
 }
 
 document.getElementById('search').addEventListener('click', searchPerson);
+document.getElementById('info').addEventListener('click', showInfo);
 
 function numberValidator(number) {
   for (let i = 0; i < number.length; i++) {
@@ -74,6 +75,10 @@ async function searchPerson() {
   } catch (error) {
     showingAlert(error.response.status, error.response.statusText);
   }
+}
+
+async function showInfo() {
+  const response = await axios.get(`https://vast-tor-68806.herokuapp.com/info`);
 }
 
 document.getElementById('add').addEventListener('click', addOrUpdate);

@@ -36,7 +36,7 @@ app.get('/', function (req, res) {
 
 app.use('/api', apiRouter);
 
-app.get('/info', (request, response) => {
+app.get('/info', async (request, response) => {
   const date = Date();
   const personList = await Person.find({});
   response.send({ date: date, numberOfPeople: personList.length });
