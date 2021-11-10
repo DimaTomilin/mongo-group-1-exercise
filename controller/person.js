@@ -61,13 +61,12 @@ exports.updatePerson = async (req, res) => {
 exports.checkPerson = async (req, res) => {
   const name = req.query.name;
   try {
-    Person.exists({ name: name }, function (err, doc) {
-      if (err) {
-        res.send(false).end();
-      } else {
-        res.send(true).end();
-      }
-    });
+    const person = await Person.find({ name: name });
+    if (!person[0]) {
+      res.send(false);
+      return;
+    }
+    res.send(true);
   } catch (error) {
     res.send(error);
     return;
