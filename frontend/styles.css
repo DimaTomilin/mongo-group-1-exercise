@@ -9,20 +9,43 @@
 }
 
 #list-of-person {
-  width: 50%;
+  width: 400px;
   margin: auto;
   margin-bottom: 20px;
 }
 
-#form {
+#search-form {
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 
-#form label {
+#search-form label {
   font-size: 20px;
   margin: 10px;
+}
+
+#add-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border: black 1px solid;
+  border-radius: 5px;
+  background-color: cadetblue;
+  width: 40%;
+  margin: auto;
+  padding: 10px;
+}
+
+#inputs {
+  display: flex;
+  justify-content: center;
+}
+
+#inputs input {
+  width: 45%;
+  margin: 10px;
+  border-radius: 3px;
 }
 
 #name-area {
@@ -31,7 +54,8 @@
   margin-bottom: 10px;
 }
 
-#search {
+#search,
+#add {
   background-color: yellowgreen;
   border: 1px solid black;
   border-radius: 5px;
@@ -39,12 +63,18 @@
 }
 
 .person {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
   font-size: 18px;
   border: black 2px solid;
   border-radius: 15px;
-  text-align: center;
   padding: 5px;
   margin: 10px;
+}
+
+.information {
+  width: 50%;
 }
 
 /*
@@ -72,7 +102,8 @@ Errors
   background-color: #ff9800;
 }
 
-.closebtn {
+.closebtn,
+.deletebtn {
   margin-left: 15px;
   color: white;
   font-weight: bold;
@@ -83,6 +114,14 @@ Errors
   transition: 0.3s;
 }
 
+.deletebtn {
+  color: black;
+}
+
 .closebtn:hover {
   color: black;
+}
+
+.deletebtn:hover {
+  color: grey;
 }

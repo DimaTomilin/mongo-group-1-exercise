@@ -1,4 +1,57 @@
+function createElement(
+  tagName,
+  children = [],
+  classes = [],
+  attributes = {},
+  eventListeners = {}
+) {
+  let el = document.createElement(tagName);
+  //Adding children
+  for (const child of children) {
+    el.append(child);
+  }
+  //Adding classes
+  for (const cls of classes) {
+    el.classList.add(cls);
+  }
+  //Adding attributes
+  for (const attr in attributes) {
+    el.setAttribute(attr, attributes[attr]);
+  }
+  //Adding events
+  for (const event in eventListeners) {
+    el.addEventListener(event, eventListeners[event]);
+  }
+  return el;
+}
+
 document.getElementById('search').addEventListener('click', searchPerson);
+
+function numberValidator(number) {
+  for (let i = 0; i < number.length; i++) {
+    const char = number.charAt(i);
+    if (char === '-') {
+      continue;
+    } else if (isNaN(Number(char))) {
+      return false;
+    }
+  }
+  return true;
+}
+
+function checkInputs() {
+  const name = document.getElementById('add-name').value;
+  const number = document.getElementById('add-number').value;
+  if (!numberValidator(number)) {
+    showingAlert(500, 'Invalid number. Please use correct number.');
+    return false;
+  }
+  if (!name) {
+    showingAlert(500, 'Please use person name.');
+    return false;
+  }
+  return true;
+}
 
 async function searchPerson() {
   try {
@@ -9,7 +62,6 @@ async function searchPerson() {
       response = await axios.get(
         `https://vast-tor-68806.herokuapp.com/api/person?name=${name}`
       );
-      console.log(response);
       createPersonElement(response.data);
     }
     if (name === '') {
@@ -24,10 +76,59 @@ async function searchPerson() {
   }
 }
 
+document.getElementById('add').addEventListener('click', addPerson);
+
+async function addPerson() {
+  const name = document.getElementById('add-name').value;
+  const number = document.getElementById('add-number').value;
+  if (!checkInputs()) {
+    return false;
+  }
+  const response = await axios.post(
+    `https://vast-tor-68806.herokuapp.com/api/person`,
+    { name, number }
+  );
+  console.log(response);
+}
+
+async function deletePerson(e) {
+  const name = e.target.parentElement.firstChild.firstChild.innerHTML.slice(6);
+  console.log(name);
+  const response = await axios.delete(
+    `https://vast-tor-68806.herokuapp.com/api/person?name=${name}`
+  );
+  console.log(response);
+}
+
 function createPersonElement(person) {
-  const personElement = document.createElement('div');
-  personElement.classList.add('person');
-  personElement.innerHTML = `Name: ${person.name}<br>Number: ${person.number}`;
+  const name = createElement('div', [`Name: ${person.name}`]);
+  const number = createElement('div', [`Number: ${person.number}`]);
+  const personInformation = createElement(
+    'div',
+    [name, number],
+    ['information']
+  );
+  const buttonELement = createElement(
+    'div',
+    [],
+    ['deletebtn'],
+    {},
+    { click: deletePerson }
+  );
+  buttonELement.innerHTML = '&times';
+  const personElement = createElement(
+    'div',
+    [personInformation, buttonELement],
+    ['person']
+  );
+
+  // const buttonELement = document.createElement('div');
+  // buttonELement.classList.add('deletebtn');
+  // buttonELement.innerHTML = '&times';
+  // buttonELement.addEventListener('click', deletePerson);
+  // const personElement = document.createElement('div');
+  // personElement.classList.add('person');
+  // personElement.append(personInformation, buttonELement);
   document.getElementById('list-of-person').append(personElement);
 }
 

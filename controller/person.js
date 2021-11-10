@@ -39,8 +39,7 @@ exports.getPersonByName = async (req, res) => {
 exports.deletePerson = async (req, res) => {
   const name = req.query.name;
   try {
-    const person = await Person.find({ name: name });
-    await Person.findByIdAndRemove(person._id);
+    const person = await Person.findOneAndDelete({ name: name });
     res.status(204).end();
   } catch (error) {
     res.send(error);
