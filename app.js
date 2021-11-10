@@ -9,7 +9,7 @@ const cors = require('cors');
 const dotenv = require('dotenv');
 dotenv.config();
 
-const Person = require('../models/person');
+const Person = require('./models/person');
 const apiRouter = require('./routers/apiRouter');
 
 app.use(cors());
