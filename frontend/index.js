@@ -149,7 +149,7 @@ function checkInputs() {
 /*
 *
 *
-Directives
+Alerts
 *
 *
 */
@@ -188,7 +188,7 @@ for (const button of closeButtons) {
 /*
 *
 *
-Directives
+Elements
 *
 *
 */

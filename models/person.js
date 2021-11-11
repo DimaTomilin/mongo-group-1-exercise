@@ -6,12 +6,13 @@ const personSchema = new mongoose.Schema(
       type: String,
       trim: true,
       required: true,
-      maxlength: 36,
+      minlength: 3,
     },
     number: {
       type: String,
       required: true,
       trim: true,
+      minlength: 8,
     },
   },
   { timestamps: true }
