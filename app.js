@@ -21,6 +21,7 @@ mongoose
   })
   .then(() => console.log('DB Connected'));
 
+// eslint-disable-next-line no-unused-vars
 morgan.token('body', function (req, res) {
   return JSON.stringify(req.body);
 });

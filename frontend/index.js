@@ -1,3 +1,4 @@
+/*global document, axios*/
 /*
 *
 *
@@ -13,7 +14,7 @@ document.getElementById('add').addEventListener('click', addOrUpdate);
 async function showInfo() {
   try {
     const response = await axios.get(
-      `https://vast-tor-68806.herokuapp.com/info`
+      'https://vast-tor-68806.herokuapp.com/info'
     );
     showingAlert(
       200,
@@ -37,7 +38,7 @@ async function searchPerson() {
     }
     if (name === '') {
       response = await axios.get(
-        `https://vast-tor-68806.herokuapp.com/api/persons`
+        'https://vast-tor-68806.herokuapp.com/api/persons'
       );
 
       createPersonList(response.data);
@@ -75,24 +76,24 @@ async function addOrUpdate() {
 async function addPerson(name, number) {
   try {
     const response = await axios.post(
-      `https://vast-tor-68806.herokuapp.com/api/person`,
+      'https://vast-tor-68806.herokuapp.com/api/person',
       { name, number }
     );
     return response;
   } catch (error) {
-    throw error;
+    showingAlert(error.response.status, error.response.statusText);
   }
 }
 
 async function updatePerson(name, number) {
   try {
     const response = await axios.put(
-      `https://vast-tor-68806.herokuapp.com/api/person`,
+      'https://vast-tor-68806.herokuapp.com/api/person',
       { name, number }
     );
     return response;
   } catch (error) {
-    throw error;
+    showingAlert(error.response.status, error.response.statusText);
   }
 }
 

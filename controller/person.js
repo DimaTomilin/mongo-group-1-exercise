@@ -13,7 +13,7 @@ exports.createPerson = async (req, res) => {
   const { name, number } = req.body;
   try {
     const person = new Person({ name, number });
-    const isSuccedde = await person.save();
+    await person.save();
     res.send(person._id);
   } catch (error) {
     res.send(error);
@@ -39,7 +39,7 @@ exports.getPersonByName = async (req, res) => {
 exports.deletePerson = async (req, res) => {
   const name = req.query.name;
   try {
-    const person = await Person.findOneAndDelete({ name: name });
+    await Person.findOneAndDelete({ name: name });
     res.status(204).end();
   } catch (error) {
     res.send(error);
